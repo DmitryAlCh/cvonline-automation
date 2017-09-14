@@ -1,0 +1,16 @@
+{
+  "name": "cvonline-automation",
+  "version": "1.0.0",
+  "description": "speeding up search process",
+  "main": "app.js",
+  "repository": "git@github.com:DmitryAlCh/cvonline-automation.git",
+  "author": "DmitryAlCh <dmi.al.ch@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "chalk": "^2.1.0",
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.18.1",
+    "request": "^2.81.0"
+  }
+}

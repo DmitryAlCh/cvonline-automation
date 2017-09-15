@@ -5,16 +5,18 @@ async function htmlToJson(rawHtml) {
   console.log('Filtering raw html with ', chalk.green('cheerio'));
   var list = [];
   var $ = cheerio.load(rawHtml);
-  $('#table_jobs > tbody > tr').each(function (i, element){
-    let link = $('.contentJobTitle', this).attr('href');
-    let dates = $('.t_jobs_tech > p', this).text();
-    let jobTitle = $('.contentJobTitle', this).text();
-    let company = $('.contentCompanyName', this).text();
+  $('.cvo_module_offers_wrap > div').each(function (i, element){
+    let link = $('h2 > a', this).attr('href');
+    let issueDate = $('.offer_dates', this).children().first().attr('title');
+    let dueDate = $('.offer_dates', this).children().last().attr('title');
+    let jobTitle = $('h2', this).text();
+    let company = $('.cvo_module_offer_meta > .offer-company', this).text();
     list.push({
-      jobTitle: jobTitle,
-      company: company,
-      link: link,
-      dates: dates
+      jobTitle,
+      company,
+      link,
+      // issueDate,
+      dueDate
     });
   });
   return list;

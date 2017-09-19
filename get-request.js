@@ -3,7 +3,13 @@ const chalk = require('chalk');
 
 async function getPage(uri){
   console.log('making axois request to: ',chalk.green(uri));
-  const page = await axios.get(uri).catch((e) => {console.log(e)});
+  let page = await axios.get(uri).catch((e) => {
+      if (e.errno == 'ENOTFOUND') {
+        console.log(chalk.red('Resource not found'));
+        return false;
+      }
+  });
+
   if (page){
     return page.data;
   } else {

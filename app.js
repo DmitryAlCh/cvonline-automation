@@ -8,19 +8,18 @@ const {getPage} = require('./get-request');
 const {htmlToJson} = require('./parsing');
 const {saveData} = require('./local-storage');
 const {readLocal} = require('./read-local');
-const {compareJsons} = require('./compare-2-jsons');
+const {compareJsons} = require('./compare');
 const {searchParams} = require('./keywords');
+const {paginate} = require('./paginate');
 
 const keyWords = ['inženieris', 'projektu', 'node.js', 'autocad'];
 
-// console.log(keywordsToSearch);
-
-// const uri = `http://www.cv.lv/darba-sludinajumi/q-${encodeURIComponent(keyword)}`;
 
 wrapper = async (element) => {
   var bothJsons = await itemsInJson (element.url, element.fileName);
   if (bothJsons){
-      var newItems = await compareJsons(bothJsons.localData, bothJsons.onlineData);
+      // console.log(bothJsons.onlineData);
+      var newItems = compareJsons(bothJsons.localData, bothJsons.onlineData);
   } else {
       console.log(chalk.bold.yellow('skipping comapring JSONs this iteration'));
       var newItems = false;
@@ -36,6 +35,7 @@ wrapper = async (element) => {
 }
 itemsInJson = async (uri, fileName) => {
   const rawPage = await getPage(uri);
+  // await paginate(uri);
   if (rawPage){
     return {
       localData: await readLocal(fileName),

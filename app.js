@@ -13,6 +13,8 @@ const {searchParams} = require('./keywords');
 const {paginate} = require('./paginate');
 
 const keyWords = ['inženieris', 'projektu', 'node.js', 'autocad'];
+const mainTimeOut = 30000; // in millisends;
+const cleanUpTime = 0; // in milliseconds;
 
 
 wrapper = async (element) => {
@@ -27,7 +29,7 @@ wrapper = async (element) => {
   if (newItems){
     console.log('NEW Position');
     console.log(newItems);
-    saveData(bothJsons.localData.concat(newItems), element.keyword);
+    saveData(bothJsons.localData.concat(newItems), element.fileName);
   } else {
     console.log(chalk.bold.yellow('Not saving any data this iteration'));
   }
@@ -49,16 +51,23 @@ itemsInJson = async (uri, fileName) => {
 
 
 let reqTimer = setInterval(function(){
+  console.log('Starting mainTimeOut: '+ chalk.green.bold(mainTimeOut)+' ms');
   keyWords.forEach((element, index) => {
     setTimeout(function(){
       searchObj = searchParams(element);
       console.log(searchObj);
       wrapper(searchObj)}, 10000*index);
   });
-}, 600000);
+  // once several hours clean up messages with passed due dates
 
+}, mainTimeOut);
+
+cleanUpWrapper = async (fileName) => {
+
+}
 process.on('SIGINT', () => {
   console.log(chalk.red('Exiting program on Ctr+C'));
   console.log(chalk.green('clearing the setInterval'));
+  console.log(chalk.green('May still finish some operations'));
   clearInterval(reqTimer);
 });

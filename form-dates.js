@@ -1,4 +1,14 @@
-// "CVO-3414276-LVKonkursa beigu termiņš 2017.09.30.Publicēts 2017.09.05."
-const moment = require('moment');
 
-console.log(moment('582  17. augusts 2017 10:09'));
+// take this 2017.09.30. return this:
+// 2017-09-30
+makeFormat = (dateString) => {
+  let corretcDateString = dateString.substr(1,10);
+  corretcDateString = corretcDateString.replace(/[.+]/gi, '-');
+  // console.log(corretcDateString);
+  return corretcDateString;
+}
+
+// makeFormat(' 2017.09.30.');
+module.exports = {
+  formatDate: makeFormat
+}

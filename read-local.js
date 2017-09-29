@@ -1,7 +1,9 @@
 const fs = require('fs');
 const chalk = require('chalk');
+const moment = require('moment');
+const {cleanUp} = require('./clean-up');
 
-function readLocal(fileName){
+async function readLocal(fileName){
   return new Promise ((resolve, reject) => {
     fs.readFile(fileName, (err, data) => {
       if (err) {
@@ -10,12 +12,13 @@ function readLocal(fileName){
         reject ([]);
       } else {
         console.log('Read the file: ',chalk.green(fileName));
-        resolve(JSON.parse(data));
+        let actualData = cleanUp(JSON.parse(data));
+        resolve(actualData);
       }
     });
   });
 
-}
+};
 
 module.exports = {
   readLocal

@@ -1,11 +1,8 @@
-const {readLocal} = require('./read-local');
-const {saveData} = require('./local-storage');
 const chalk = require('chalk');
 const moment = require('moment');
 
-cleanUp = async (fileName) => {
+cleanUp = async (localData) => {
   console.log(chalk.bgGreen('Running cleanUp process'));
-  let localData = await readLocal(fileName);
   let freshArray = [];
   let toDay = moment();
 
@@ -22,11 +19,15 @@ cleanUp = async (fileName) => {
     });
   }
   if (freshArray.length !== localData.length) {
-    saveData(freshArray, fileName);
+    console.log(chalk.bgYellow.black('Seme positions where clean out'));
+    return freshArray;
   } else {
     console.log(chalk.bgYellow.black('No need to save data after clean up'));
+    return freshArray;
   }
 
 }
 
-cleanUp('./inženieris.txt');
+module.exports = {
+  cleanUp
+}

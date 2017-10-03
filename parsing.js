@@ -1,6 +1,6 @@
 const cheerio=require('cheerio');
 const chalk = require('chalk');
-const {formatDate} = require('./form-dates');
+const {formatDate} = require('./utils/form-dates');
 
 async function htmlToJson(rawHtml) {
   console.log('Filtering raw html with ', chalk.green('cheerio'));

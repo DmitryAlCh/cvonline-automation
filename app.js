@@ -9,7 +9,7 @@ const {htmlToJson} = require('./parsing');
 const {saveData} = require('./local-storage');
 const {readLocal} = require('./read-local');
 const {compareJsons} = require('./compare');
-const {searchParams} = require('./keywords');
+const {searchParams} = require('./utils/keywords');
 const {paginate} = require('./paginate');
 
 const keyWords = ['inženieris', 'projektu', 'node.js', 'autocad'];

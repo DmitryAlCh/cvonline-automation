@@ -5,12 +5,12 @@ cleanUp = async (localData) => {
   console.log(chalk.bgGreen('Running cleanUp process'));
   let freshArray = [];
   let toDay = moment();
-
+console.log('localData length=',chalk.bgRed(localData.length));
   if (localData.length>0){
     localData.forEach((element) => {
       let adDate = moment(element.dueDate);
-      let remaining = moment(adDate-toDay).format('DD');
-      if (Number.parseInt(remaining) <= 0){
+      let remaining = adDate.diff(toDay);
+      if (Number.parseInt(remaining) <= -86400000){
         console.log(chalk.bgRed.black('This one to delete:'));
         console.log(chalk.bgYellow.blue(JSON.stringify(element,2,2)));
       } else {
@@ -27,6 +27,8 @@ cleanUp = async (localData) => {
   }
 
 }
+
+
 
 module.exports = {
   cleanUp
